@@ -19,16 +19,18 @@ for systemd to function properly.
 
 - Useless demo:
 
-    $ docker run --privileged --name=fedora-systemd -d joemiller/fedora-systemd:22
-    1ff58ef39f70c3431dc4544f79037356a73190dcc78d2271b0093861bf4a307d
+```
+  $ docker run --privileged --name=fedora-systemd -d joemiller/fedora-systemd:22
+  1ff58ef39f70c3431dc4544f79037356a73190dcc78d2271b0093861bf4a307d
 
-    $ docker exec -it fedora-systemd /bin/bash
-    [root@1ff58ef39f70 /]# ps aux
-    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-    root         1  0.5  0.2  42968  4724 ?        Ss   23:52   0:00 /usr/lib/systemd/systemd
-    root        17  0.0  0.3  37352  6792 ?        Ss   23:52   0:00 /usr/lib/systemd/systemd-journald
-    root        26  2.5  0.1  12548  3728 ?        Ss   23:52   0:00 /bin/bash
-    root        42  0.0  0.1  47964  3404 ?        R+   23:52   0:00 ps aux
+  $ docker exec -it fedora-systemd /bin/bash
+  [root@1ff58ef39f70 /]# ps aux
+  USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+  root         1  0.5  0.2  42968  4724 ?        Ss   23:52   0:00 /usr/lib/systemd/systemd
+  root        17  0.0  0.3  37352  6792 ?        Ss   23:52   0:00 /usr/lib/systemd/systemd-journald
+  root        26  2.5  0.1  12548  3728 ?        Ss   23:52   0:00 /bin/bash
+  root        42  0.0  0.1  47964  3404 ?        R+   23:52   0:00 ps aux
+```
 
 See the `examples/` subdirectory for more example Dockerfiles that build on
 top of the base image and do more useful things.

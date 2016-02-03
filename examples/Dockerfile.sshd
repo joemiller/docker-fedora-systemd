@@ -1,0 +1,28 @@
+# build:
+#   docker build -t sshd -f Dockerfile.sshd .
+#
+# run:
+#   docker run --privileged --name=sshd -d -p 2222:22 sshd
+#
+# ssh into the container:
+#   ssh -p 2222 <IP OF CONTAINER>
+#
+# stop and cleanup the container:
+#    docker stop sshd ; docker rm sshd
+#
+
+FROM joemiller/fedora-systemd:22
+
+RUN dnf -y install openssh-server openssh-clients sudo
+
+RUN sed -i '/UsePAM/d'  /etc/ssh/sshd_config
+RUN echo 'UsePrivilegeSeparation no' >> /etc/ssh/sshd_config
+RUN echo 'UsePAM no' >> /etc/ssh/sshd_config
+RUN systemctl enable sshd
+
+# dummy user with PASSWORDLESS SUDO ACCESS!!!!!!!
+RUN useradd -d /home/dummy -m -s /bin/bash dummy
+RUN echo "dummy:dummy" | chpasswd
+RUN echo 'dummy ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+EXPOSE 22
